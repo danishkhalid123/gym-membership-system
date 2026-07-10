@@ -1,0 +1,50 @@
+import express from 'express';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import cors from 'cors';
+import dotenv from "dotenv";
+import cookieParser from 'cookie-parser';
+import authRouter from './routes/auth/index.ts';
+
+import { connectDB } from "./config/db.ts";
+import { errorHandler } from './middlewares/error-handler.ts';
+import profileRouter from './routes/profile/index.ts';
+import membershipPlansRouter from './routes/membership-plans/index.ts';
+
+dotenv.config();
+const app = express();
+const PORT = 3000;
+app.use(express.json());
+connectDB();
+
+//Helmet
+app.use(helmet());
+
+//Morgan
+app.use(morgan('dev')) //FOR DEV
+// app.use(morgan(":method :url :status :response-time ms")) //FOR PRODUCTION
+
+//CORS
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+}))
+
+//ASSETS IN EXPRESS
+app.use(express.static('public'));
+
+//Cookies
+app.use(cookieParser());
+
+//Routes
+app.use('/auth', authRouter);
+app.use('/', profileRouter);
+app.use("/membership-plans", membershipPlansRouter)
+
+//Register Error middleware
+app.use(errorHandler);
+
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
