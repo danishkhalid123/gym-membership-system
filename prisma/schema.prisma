@@ -33,3 +33,13 @@ model membership_plans {
 
   @@map("membership_plans")
 }
+
+model subscriptions {
+  id         Int      @id @default(autoincrement())
+  start_date DateTime
+  end_date   DateTime
+  status     String   @db.VarChar(12)
+
+  @@map("subscriptions")
+  
+}
