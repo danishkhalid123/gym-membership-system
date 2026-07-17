@@ -21,6 +21,8 @@ model users {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
+  subscription subscriptions[]
+
   @@map("users")
 }
 
@@ -31,15 +33,21 @@ model membership_plans {
   duration_days Int
   description   String @db.VarChar(255)
 
+  subscription subscriptions[]
+
   @@map("membership_plans")
 }
 
 model subscriptions {
-  id         Int      @id @default(autoincrement())
-  start_date DateTime
-  end_date   DateTime
-  status     String   @db.VarChar(12)
+  id            Int      @id @default(autoincrement())
+  user_id       Int
+  membership_id Int
+  start_date    DateTime
+  end_date      DateTime
+  status        String   @db.VarChar(12)
+
+  user            users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  membership_plan membership_plans @relation(fields: [membership_id], references: [id], onDelete: Restrict)
 
   @@map("subscriptions")
-  
 }

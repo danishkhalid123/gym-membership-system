@@ -27,3 +27,8 @@ export type users = Prisma.usersModel
  * 
  */
 export type membership_plans = Prisma.membership_plansModel
+/**
+ * Model subscriptions
+ * 
+ */
+export type subscriptions = Prisma.subscriptionsModel

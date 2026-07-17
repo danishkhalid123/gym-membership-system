@@ -10,4 +10,5 @@
  */
 export type * from './models/users.ts'
 export type * from './models/membership_plans.ts'
+export type * from './models/subscriptions.ts'
 export type * from './commonInputTypes.ts'

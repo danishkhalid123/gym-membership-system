@@ -224,6 +224,7 @@ export type membership_plansWhereInput = {
   price?: Prisma.IntFilter<"membership_plans"> | number
   duration_days?: Prisma.IntFilter<"membership_plans"> | number
   description?: Prisma.StringFilter<"membership_plans"> | string
+  subscription?: Prisma.SubscriptionsListRelationFilter
 }
 
 export type membership_plansOrderByWithRelationInput = {
@@ -232,6 +233,7 @@ export type membership_plansOrderByWithRelationInput = {
   price?: Prisma.SortOrder
   duration_days?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  subscription?: Prisma.subscriptionsOrderByRelationAggregateInput
   _relevance?: Prisma.membership_plansOrderByRelevanceInput
 }
 
@@ -244,6 +246,7 @@ export type membership_plansWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.IntFilter<"membership_plans"> | number
   duration_days?: Prisma.IntFilter<"membership_plans"> | number
   description?: Prisma.StringFilter<"membership_plans"> | string
+  subscription?: Prisma.SubscriptionsListRelationFilter
 }, "id">
 
 export type membership_plansOrderByWithAggregationInput = {
@@ -275,6 +278,7 @@ export type membership_plansCreateInput = {
   price: number
   duration_days: number
   description: string
+  subscription?: Prisma.subscriptionsCreateNestedManyWithoutMembership_planInput
 }
 
 export type membership_plansUncheckedCreateInput = {
@@ -283,6 +287,7 @@ export type membership_plansUncheckedCreateInput = {
   price: number
   duration_days: number
   description: string
+  subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutMembership_planInput
 }
 
 export type membership_plansUpdateInput = {
@@ -290,6 +295,7 @@ export type membership_plansUpdateInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   duration_days?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  subscription?: Prisma.subscriptionsUpdateManyWithoutMembership_planNestedInput
 }
 
 export type membership_plansUncheckedUpdateInput = {
@@ -298,6 +304,7 @@ export type membership_plansUncheckedUpdateInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   duration_days?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutMembership_planNestedInput
 }
 
 export type membership_plansCreateManyInput = {
@@ -365,6 +372,100 @@ export type membership_plansSumOrderByAggregateInput = {
   duration_days?: Prisma.SortOrder
 }
 
+export type Membership_plansScalarRelationFilter = {
+  is?: Prisma.membership_plansWhereInput
+  isNot?: Prisma.membership_plansWhereInput
+}
+
+export type membership_plansCreateNestedOneWithoutSubscriptionInput = {
+  create?: Prisma.XOR<Prisma.membership_plansCreateWithoutSubscriptionInput, Prisma.membership_plansUncheckedCreateWithoutSubscriptionInput>
+  connectOrCreate?: Prisma.membership_plansCreateOrConnectWithoutSubscriptionInput
+  connect?: Prisma.membership_plansWhereUniqueInput
+}
+
+export type membership_plansUpdateOneRequiredWithoutSubscriptionNestedInput = {
+  create?: Prisma.XOR<Prisma.membership_plansCreateWithoutSubscriptionInput, Prisma.membership_plansUncheckedCreateWithoutSubscriptionInput>
+  connectOrCreate?: Prisma.membership_plansCreateOrConnectWithoutSubscriptionInput
+  upsert?: Prisma.membership_plansUpsertWithoutSubscriptionInput
+  connect?: Prisma.membership_plansWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.membership_plansUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.membership_plansUpdateWithoutSubscriptionInput>, Prisma.membership_plansUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type membership_plansCreateWithoutSubscriptionInput = {
+  name: string
+  price: number
+  duration_days: number
+  description: string
+}
+
+export type membership_plansUncheckedCreateWithoutSubscriptionInput = {
+  id?: number
+  name: string
+  price: number
+  duration_days: number
+  description: string
+}
+
+export type membership_plansCreateOrConnectWithoutSubscriptionInput = {
+  where: Prisma.membership_plansWhereUniqueInput
+  create: Prisma.XOR<Prisma.membership_plansCreateWithoutSubscriptionInput, Prisma.membership_plansUncheckedCreateWithoutSubscriptionInput>
+}
+
+export type membership_plansUpsertWithoutSubscriptionInput = {
+  update: Prisma.XOR<Prisma.membership_plansUpdateWithoutSubscriptionInput, Prisma.membership_plansUncheckedUpdateWithoutSubscriptionInput>
+  create: Prisma.XOR<Prisma.membership_plansCreateWithoutSubscriptionInput, Prisma.membership_plansUncheckedCreateWithoutSubscriptionInput>
+  where?: Prisma.membership_plansWhereInput
+}
+
+export type membership_plansUpdateToOneWithWhereWithoutSubscriptionInput = {
+  where?: Prisma.membership_plansWhereInput
+  data: Prisma.XOR<Prisma.membership_plansUpdateWithoutSubscriptionInput, Prisma.membership_plansUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type membership_plansUpdateWithoutSubscriptionInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration_days?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type membership_plansUncheckedUpdateWithoutSubscriptionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration_days?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+
+/**
+ * Count Type Membership_plansCountOutputType
+ */
+
+export type Membership_plansCountOutputType = {
+  subscription: number
+}
+
+export type Membership_plansCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  subscription?: boolean | Membership_plansCountOutputTypeCountSubscriptionArgs
+}
+
+/**
+ * Membership_plansCountOutputType without action
+ */
+export type Membership_plansCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Membership_plansCountOutputType
+   */
+  select?: Prisma.Membership_plansCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Membership_plansCountOutputType without action
+ */
+export type Membership_plansCountOutputTypeCountSubscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.subscriptionsWhereInput
+}
 
 
 export type membership_plansSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -373,6 +474,8 @@ export type membership_plansSelect<ExtArgs extends runtime.Types.Extensions.Inte
   price?: boolean
   duration_days?: boolean
   description?: boolean
+  subscription?: boolean | Prisma.membership_plans$subscriptionArgs<ExtArgs>
+  _count?: boolean | Prisma.Membership_plansCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["membership_plans"]>
 
 
@@ -386,10 +489,16 @@ export type membership_plansSelectScalar = {
 }
 
 export type membership_plansOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "price" | "duration_days" | "description", ExtArgs["result"]["membership_plans"]>
+export type membership_plansInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  subscription?: boolean | Prisma.membership_plans$subscriptionArgs<ExtArgs>
+  _count?: boolean | Prisma.Membership_plansCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $membership_plansPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "membership_plans"
-  objects: {}
+  objects: {
+    subscription: Prisma.$subscriptionsPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
@@ -736,6 +845,7 @@ readonly fields: membership_plansFieldRefs;
  */
 export interface Prisma__membership_plansClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  subscription<T extends Prisma.membership_plans$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.membership_plans$subscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -787,6 +897,10 @@ export type membership_plansFindUniqueArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * Filter, which membership_plans to fetch.
    */
   where: Prisma.membership_plansWhereUniqueInput
@@ -805,6 +919,10 @@ export type membership_plansFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * Filter, which membership_plans to fetch.
    */
   where: Prisma.membership_plansWhereUniqueInput
@@ -822,6 +940,10 @@ export type membership_plansFindFirstArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the membership_plans
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
   /**
    * Filter, which membership_plans to fetch.
    */
@@ -871,6 +993,10 @@ export type membership_plansFindFirstOrThrowArgs<ExtArgs extends runtime.Types.E
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * Filter, which membership_plans to fetch.
    */
   where?: Prisma.membership_plansWhereInput
@@ -918,6 +1044,10 @@ export type membership_plansFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the membership_plans
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
   /**
    * Filter, which membership_plans to fetch.
    */
@@ -967,6 +1097,10 @@ export type membership_plansCreateArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * The data needed to create a membership_plans.
    */
   data: Prisma.XOR<Prisma.membership_plansCreateInput, Prisma.membership_plansUncheckedCreateInput>
@@ -995,6 +1129,10 @@ export type membership_plansUpdateArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the membership_plans
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
   /**
    * The data needed to update a membership_plans.
    */
@@ -1036,6 +1174,10 @@ export type membership_plansUpsertArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * The filter to search for the membership_plans to update in case it exists.
    */
   where: Prisma.membership_plansWhereUniqueInput
@@ -1062,6 +1204,10 @@ export type membership_plansDeleteArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
+  /**
    * Filter which membership_plans to delete.
    */
   where: Prisma.membership_plansWhereUniqueInput
@@ -1082,6 +1228,30 @@ export type membership_plansDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 /**
+ * membership_plans.subscription
+ */
+export type membership_plans$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the subscriptions
+   */
+  select?: Prisma.subscriptionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the subscriptions
+   */
+  omit?: Prisma.subscriptionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.subscriptionsInclude<ExtArgs> | null
+  where?: Prisma.subscriptionsWhereInput
+  orderBy?: Prisma.subscriptionsOrderByWithRelationInput | Prisma.subscriptionsOrderByWithRelationInput[]
+  cursor?: Prisma.subscriptionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubscriptionsScalarFieldEnum | Prisma.SubscriptionsScalarFieldEnum[]
+}
+
+/**
  * membership_plans without action
  */
 export type membership_plansDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1093,4 +1263,8 @@ export type membership_plansDefaultArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the membership_plans
    */
   omit?: Prisma.membership_plansOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.membership_plansInclude<ExtArgs> | null
 }
