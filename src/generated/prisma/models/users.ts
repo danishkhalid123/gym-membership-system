@@ -233,6 +233,7 @@ export type usersWhereInput = {
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   subscription?: Prisma.SubscriptionsListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }
 
 export type usersOrderByWithRelationInput = {
@@ -244,6 +245,7 @@ export type usersOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   subscription?: Prisma.subscriptionsOrderByRelationAggregateInput
+  attendance?: Prisma.attendanceOrderByRelationAggregateInput
   _relevance?: Prisma.usersOrderByRelevanceInput
 }
 
@@ -259,6 +261,7 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   subscription?: Prisma.SubscriptionsListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }, "id" | "email">
 
 export type usersOrderByWithAggregationInput = {
@@ -297,6 +300,7 @@ export type usersCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsCreateNestedManyWithoutUserInput
+  attendance?: Prisma.attendanceCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateInput = {
@@ -308,6 +312,7 @@ export type usersUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutUserInput
+  attendance?: Prisma.attendanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersUpdateInput = {
@@ -318,6 +323,7 @@ export type usersUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUpdateManyWithoutUserNestedInput
+  attendance?: Prisma.attendanceUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateInput = {
@@ -329,6 +335,7 @@ export type usersUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutUserNestedInput
+  attendance?: Prisma.attendanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type usersCreateManyInput = {
@@ -439,6 +446,20 @@ export type usersUpdateOneRequiredWithoutSubscriptionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.usersUpdateWithoutSubscriptionInput>, Prisma.usersUncheckedUpdateWithoutSubscriptionInput>
 }
 
+export type usersCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutAttendanceInput, Prisma.usersUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutAttendanceInput, Prisma.usersUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.usersUpsertWithoutAttendanceInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutAttendanceInput, Prisma.usersUpdateWithoutAttendanceInput>, Prisma.usersUncheckedUpdateWithoutAttendanceInput>
+}
+
 export type usersCreateWithoutSubscriptionInput = {
   name: string
   email: string
@@ -446,6 +467,7 @@ export type usersCreateWithoutSubscriptionInput = {
   role: string
   created_at?: Date | string
   updated_at?: Date | string
+  attendance?: Prisma.attendanceCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateWithoutSubscriptionInput = {
@@ -456,6 +478,7 @@ export type usersUncheckedCreateWithoutSubscriptionInput = {
   role: string
   created_at?: Date | string
   updated_at?: Date | string
+  attendance?: Prisma.attendanceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersCreateOrConnectWithoutSubscriptionInput = {
@@ -481,6 +504,7 @@ export type usersUpdateWithoutSubscriptionInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendance?: Prisma.attendanceUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateWithoutSubscriptionInput = {
@@ -491,6 +515,65 @@ export type usersUncheckedUpdateWithoutSubscriptionInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attendance?: Prisma.attendanceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutAttendanceInput = {
+  name: string
+  email: string
+  password: string
+  role: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  subscription?: Prisma.subscriptionsCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutAttendanceInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  role: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutAttendanceInput, Prisma.usersUncheckedCreateWithoutAttendanceInput>
+}
+
+export type usersUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutAttendanceInput, Prisma.usersUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutAttendanceInput, Prisma.usersUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutAttendanceInput, Prisma.usersUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type usersUpdateWithoutAttendanceInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.subscriptionsUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -500,10 +583,12 @@ export type usersUncheckedUpdateWithoutSubscriptionInput = {
 
 export type UsersCountOutputType = {
   subscription: number
+  attendance: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | UsersCountOutputTypeCountSubscriptionArgs
+  attendance?: boolean | UsersCountOutputTypeCountAttendanceArgs
 }
 
 /**
@@ -523,6 +608,13 @@ export type UsersCountOutputTypeCountSubscriptionArgs<ExtArgs extends runtime.Ty
   where?: Prisma.subscriptionsWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.attendanceWhereInput
+}
+
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -533,6 +625,7 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   created_at?: boolean
   updated_at?: boolean
   subscription?: boolean | Prisma.users$subscriptionArgs<ExtArgs>
+  attendance?: boolean | Prisma.users$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -551,6 +644,7 @@ export type usersSelectScalar = {
 export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | Prisma.users$subscriptionArgs<ExtArgs>
+  attendance?: boolean | Prisma.users$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -558,6 +652,7 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "users"
   objects: {
     subscription: Prisma.$subscriptionsPayload<ExtArgs>[]
+    attendance: Prisma.$attendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -908,6 +1003,7 @@ readonly fields: usersFieldRefs;
 export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscription<T extends Prisma.users$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$subscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendance<T extends Prisma.users$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$attendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1313,6 +1409,30 @@ export type users$subscriptionArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionsScalarFieldEnum | Prisma.SubscriptionsScalarFieldEnum[]
+}
+
+/**
+ * users.attendance
+ */
+export type users$attendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the attendance
+   */
+  select?: Prisma.attendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the attendance
+   */
+  omit?: Prisma.attendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.attendanceInclude<ExtArgs> | null
+  where?: Prisma.attendanceWhereInput
+  orderBy?: Prisma.attendanceOrderByWithRelationInput | Prisma.attendanceOrderByWithRelationInput[]
+  cursor?: Prisma.attendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

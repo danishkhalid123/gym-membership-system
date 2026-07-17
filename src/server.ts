@@ -11,6 +11,7 @@ import { errorHandler } from './middlewares/error-handler.ts';
 import profileRouter from './routes/profile/index.ts';
 import membershipPlansRouter from './routes/membership-plans/index.ts';
 import subscriptionsRouter from './routes/subscriptions/index.ts';
+import attendanceRouter from './routes/attendance/index.ts';
 
 dotenv.config();
 const app = express();
@@ -42,6 +43,7 @@ app.use('/auth', authRouter);
 app.use('/', profileRouter);
 app.use("/membership-plans", membershipPlansRouter);
 app.use("/subscriptions", subscriptionsRouter);
+app.use("/attendance", attendanceRouter);
 
 //Register Error middleware
 app.use(errorHandler);

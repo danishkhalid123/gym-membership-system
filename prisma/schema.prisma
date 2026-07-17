@@ -22,6 +22,7 @@ model users {
   updated_at DateTime @updatedAt
 
   subscription subscriptions[]
+  attendance   attendance[]
 
   @@map("users")
 }
@@ -50,4 +51,15 @@ model subscriptions {
   membership_plan membership_plans @relation(fields: [membership_id], references: [id], onDelete: Restrict)
 
   @@map("subscriptions")
+}
+
+model attendance {
+  id            Int      @id @default(autoincrement())
+  user_id       Int
+  checkin_time  DateTime
+  checkout_time DateTime?
+
+  user               users             @relation(fields: [user_id], references: [id], onDelete: Restrict)
+
+  @@map("attendance")
 }

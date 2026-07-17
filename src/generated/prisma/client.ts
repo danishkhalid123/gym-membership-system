@@ -56,3 +56,8 @@ export type membership_plans = Prisma.membership_plansModel
  * 
  */
 export type subscriptions = Prisma.subscriptionsModel
+/**
+ * Model attendance
+ * 
+ */
+export type attendance = Prisma.attendanceModel

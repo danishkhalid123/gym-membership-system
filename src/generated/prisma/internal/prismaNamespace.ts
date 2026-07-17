@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   users: 'users',
   membership_plans: 'membership_plans',
-  subscriptions: 'subscriptions'
+  subscriptions: 'subscriptions',
+  attendance: 'attendance'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users" | "membership_plans" | "subscriptions"
+    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -604,6 +605,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    attendance: {
+      payload: Prisma.$attendancePayload<ExtArgs>
+      fields: Prisma.attendanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.attendanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.attendanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        findFirst: {
+          args: Prisma.attendanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.attendanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        findMany: {
+          args: Prisma.attendanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>[]
+        }
+        create: {
+          args: Prisma.attendanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        createMany: {
+          args: Prisma.attendanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.attendanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        update: {
+          args: Prisma.attendanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        deleteMany: {
+          args: Prisma.attendanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.attendanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.attendanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$attendancePayload>
+        }
+        aggregate: {
+          args: Prisma.AttendanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttendance>
+        }
+        groupBy: {
+          args: Prisma.attendanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.attendanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -679,6 +746,16 @@ export const SubscriptionsScalarFieldEnum = {
 export type SubscriptionsScalarFieldEnum = (typeof SubscriptionsScalarFieldEnum)[keyof typeof SubscriptionsScalarFieldEnum]
 
 
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  checkin_time: 'checkin_time',
+  checkout_time: 'checkout_time'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -710,6 +787,14 @@ export const subscriptionsOrderByRelevanceFieldEnum = {
 } as const
 
 export type subscriptionsOrderByRelevanceFieldEnum = (typeof subscriptionsOrderByRelevanceFieldEnum)[keyof typeof subscriptionsOrderByRelevanceFieldEnum]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -858,6 +943,7 @@ export type GlobalOmitConfig = {
   users?: Prisma.usersOmit
   membership_plans?: Prisma.membership_plansOmit
   subscriptions?: Prisma.subscriptionsOmit
+  attendance?: Prisma.attendanceOmit
 }
 
 /* Types for Logging */
