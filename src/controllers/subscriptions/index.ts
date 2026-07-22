@@ -42,7 +42,7 @@ export const addNewSubscription = asyncHandler(async (req, res) => {
 
     const { start_date, end_date, status, user_id, membership_id } = req.body;
 
-    const getMembershipId = await prisma.subscriptions.findUnique({
+    const getMembershipId = await prisma.membership_plans.findUnique({
         where: { id: Number(membership_id) }
     });
 
