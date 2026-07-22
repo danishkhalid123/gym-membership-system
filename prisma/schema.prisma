@@ -59,7 +59,7 @@ model attendance {
   checkin_time  DateTime
   checkout_time DateTime?
 
-  user               users             @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  user               users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("attendance")
 }

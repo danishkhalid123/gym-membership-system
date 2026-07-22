@@ -12,6 +12,7 @@ import profileRouter from './routes/profile/index.ts';
 import membershipPlansRouter from './routes/membership-plans/index.ts';
 import subscriptionsRouter from './routes/subscriptions/index.ts';
 import attendanceRouter from './routes/attendance/index.ts';
+import usersRouter from './routes/users/index.ts';
 
 dotenv.config();
 const app = express();
@@ -40,6 +41,7 @@ app.use(cookieParser());
 
 //Routes
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 app.use('/', profileRouter);
 app.use("/membership-plans", membershipPlansRouter);
 app.use("/subscriptions", subscriptionsRouter);
