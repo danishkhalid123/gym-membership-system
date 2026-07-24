@@ -3,6 +3,7 @@ import { AppError } from "../../utils/app-errors.ts";
 import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
+import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
 
 export const createOrUpdateAttandanceSchema = zod.object({
     user_id: zod.number(),
@@ -15,9 +16,55 @@ export const checkoutSchema = zod.object({
     checkout_time: zod.string().nullable(),
 });
 
+export const attendanceQuerySchema = zod.object({
+    page: zod.coerce.number().min(1).default(1),
+    limit: zod.coerce.number().min(1).max(100).default(10),
+    checkin_date: zod.string().optional(),
+    checkout_date: zod.string().optional(),
+});
+
+
 export const getAllAttendance = asyncHandler(async (req, res) => {
-    const getAttendance = await prisma.attendance.findMany({ orderBy: { checkin_time: 'desc' } });
-    return sendResponse(res, { status: 200, success: true, message: "Operational successfull", data: getAttendance })
+    const validation = attendanceQuerySchema.safeParse(req.query);
+    if (!validation.success) {
+        return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
+    }
+    const { page, limit, checkin_date,checkout_date } = validation.data;
+    const { skip, take } = getPagination(page, limit);
+
+
+    const searchFilter: any = {};
+
+    if (checkin_date) {
+        searchFilter.checkin_time = {
+            gte: new Date(`${checkin_date}T00:00:00.000Z`),
+            lt: new Date(`${checkin_date}T23:59:59.999Z`),
+        };
+    }
+
+    if (checkout_date) {
+        searchFilter.checkout_time = {
+            gte: new Date(`${checkout_date}T00:00:00.000Z`),
+            lt: new Date(`${checkout_date}T23:59:59.999Z`),
+        };
+    }
+
+    const [attendanceData, total] = await Promise.all([
+        prisma.attendance.findMany({
+            where: searchFilter,
+            skip,
+            take,
+            orderBy: {
+                id: "desc",
+            },
+        }),
+        prisma.attendance.count({
+            where: searchFilter,
+        }),
+    ]);
+
+    return sendResponse(res, { status: 200, success: true, message: "Operation successful", data: attendanceData, pagination: getPaginationMeta(total, page, limit), });
+
 });
 
 export const getParticularAttandance = asyncHandler(async (req, res) => {
@@ -60,7 +107,7 @@ export const addNewAttandance = asyncHandler(async (req, res) => {
     if (isNaN(checkoutDate.getTime())) {
         throw new AppError("Invalid checkout time", 400);
     }
-    
+
     if (checkoutDate <= checkinDate) {
         throw new AppError("Checkout time must be greater than check-in time", 400);
     }

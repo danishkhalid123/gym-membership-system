@@ -3,6 +3,7 @@ import { AppError } from "../../utils/app-errors.ts";
 import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
+import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
 
 export const createOrUpdateSubscriptionSchema = zod.object({
     user_id: zod.number(),
@@ -12,9 +13,67 @@ export const createOrUpdateSubscriptionSchema = zod.object({
     status: zod.string()
 });
 
+export const subscriptionQuerySchema = zod.object({
+    page: zod.coerce.number().min(1).default(1),
+    limit: zod.coerce.number().min(1).max(100).default(10),
+    start_date: zod.string().optional(),
+    end_date: zod.string().optional(),
+    user_id: zod.coerce.number().optional(),
+    membership_id: zod.coerce.number().optional(),
+});
+
+
 export const getAllSubscriptions = asyncHandler(async (req, res) => {
-    const getSubscriptions = await prisma.subscriptions.findMany();
-    return sendResponse(res, { status: 200, success: true, message: "Operational successfull", data: getSubscriptions })
+    const validation = subscriptionQuerySchema.safeParse(req.query);
+    if (!validation.success) {
+        return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
+    }
+    const { page, limit, start_date, end_date, user_id, membership_id, } = validation.data;
+    const { skip, take } = getPagination(page, limit);
+
+    const searchFilter: any = {};
+
+    if (start_date) {
+        searchFilter.start_date = {
+            gte: new Date(`${start_date}T00:00:00.000Z`),
+            lt: new Date(`${start_date}T23:59:59.999Z`),
+        };
+    }
+
+    if (end_date) {
+        searchFilter.end_date = {
+            gte: new Date(`${end_date}T00:00:00.000Z`),
+            lt: new Date(`${end_date}T23:59:59.999Z`),
+        };
+    }
+
+    if (user_id) {
+        searchFilter.user_id = user_id;
+    }
+
+    if (membership_id) {
+        searchFilter.membership_id = membership_id;
+    }
+
+    const [subscriptionsData, total] = await Promise.all([
+        prisma.subscriptions.findMany({
+            where: searchFilter,
+            skip,
+            take,
+            orderBy: {
+                id: "desc",
+            },
+            // include: {
+            //     user: true,
+            //     membership_plan: true,
+            // },
+        }),
+        prisma.subscriptions.count({
+            where: searchFilter,
+        }),
+    ]);
+
+    return sendResponse(res, { status: 200, success: true, message: "Operation successful", data: subscriptionsData, pagination: getPaginationMeta(total, page, limit), });
 });
 
 export const getParticularSubscription = asyncHandler(async (req, res) => {

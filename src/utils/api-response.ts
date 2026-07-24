@@ -3,9 +3,10 @@ interface ApiResponse<T = unknown> {
     success: boolean;
     message: string | object;
     data?: T;
+    pagination?: any;
 }
 
-export const sendResponse = <T>(res: any, { status = 200, success = true, message = '', data }: ApiResponse<T>
+export const sendResponse = <T>(res: any, { status = 200, success = true, message = '', data, pagination }: ApiResponse<T>
 ) => {
-    return res.status(status).json({ status, success, message, data, });
+    return res.status(status).json({ status, success, message, data, pagination });
 };

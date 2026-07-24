@@ -4,6 +4,7 @@ import { AppError } from "../../utils/app-errors.ts";
 import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
+import { getPagination, getPaginationMeta } from '../../utils/pagination.ts';
 
 export const createOrUpdateUserSchema = zod.object({
     name: zod.string(),
@@ -12,9 +13,46 @@ export const createOrUpdateUserSchema = zod.object({
     role: zod.string().trim()
 });
 
+export const membershipPlanQuerySchema = zod.object({
+    page: zod.coerce.number().min(1).default(1),
+    limit: zod.coerce.number().min(1).max(100).default(10),
+    search: zod.string().optional().default(""),
+    role: zod.string().trim().optional(),
+});
+
 export const getAllUsers = asyncHandler(async (req, res) => {
-    const getUsers = await prisma.users.findMany();
-    return sendResponse(res, { status: 200, success: true, message: "Operational successfull", data: getUsers })
+    const validation = membershipPlanQuerySchema.safeParse(req.query);
+    if (!validation.success) {
+        return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
+    }
+    const { page, limit, search, role } = validation.data;
+    const { skip, take } = getPagination(page, limit);
+
+    const searchFilter: any = {}
+
+    if (search) {
+        searchFilter.OR = [{ name: { contains: search } }, { email: { contains: search } }]
+    }
+
+    if (role) {
+        searchFilter.role = role;
+    }
+
+    const [usersData, total] = await Promise.all([
+        prisma.users.findMany({
+            where: searchFilter,
+            skip,
+            take,
+            orderBy: {
+                id: "desc",
+            },
+        }),
+        prisma.users.count({
+            where: searchFilter,
+        }),
+    ]);
+
+    return sendResponse(res, { status: 200, success: true, message: "Operation successful", data: usersData, pagination: getPaginationMeta(total, page, limit), });
 });
 
 export const getParticularUser = asyncHandler(async (req, res) => {

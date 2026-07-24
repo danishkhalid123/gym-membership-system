@@ -3,6 +3,7 @@ import { AppError } from "../../utils/app-errors.ts";
 import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
+import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
 
 export const createOrUpdateMembershipPlanSchema = zod.object({
     name: zod.string().trim().min(1, "Name is required").min(3, "Name must be at least 3 characters"),
@@ -11,9 +12,41 @@ export const createOrUpdateMembershipPlanSchema = zod.object({
     description: zod.string().trim(),
 });
 
+export const membershipPlanQuerySchema = zod.object({
+    page: zod.coerce.number().min(1).default(1),
+    limit: zod.coerce.number().min(1).max(100).default(10),
+    search: zod.string().optional().default(""),
+});
+
 export const getAllMembershipPlans = asyncHandler(async (req, res) => {
-    const getMembershipPlans = await prisma.membership_plans.findMany();
-    return sendResponse(res, { status: 200, success: true, message: "Operational successfull", data: getMembershipPlans })
+    const validation = membershipPlanQuerySchema.safeParse(req.query);
+    if (!validation.success) {
+        return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
+    }
+    const { page, limit, search } = validation.data;
+    const { skip, take } = getPagination(page, limit);
+
+    const searchFilter = search ?
+        {
+            OR: [{ name: { contains: search} }],
+        }
+        : {};
+
+    const [membershipPlans, total] = await Promise.all([
+        prisma.membership_plans.findMany({
+            where: searchFilter,
+            skip,
+            take,
+            orderBy: {
+                id: "desc",
+            },
+        }),
+        prisma.membership_plans.count({
+            where: searchFilter,
+        }),
+    ]);
+
+    return sendResponse(res, { status: 200, success: true, message: "Operation successful", data: membershipPlans, pagination: getPaginationMeta(total, page, limit), });
 });
 
 export const getParticularMembershipPlan = asyncHandler(async (req, res) => {
