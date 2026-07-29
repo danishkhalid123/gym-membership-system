@@ -244,9 +244,7 @@ export const upgradePreviewPlan = asyncHandler(async (req, res) => {
         )
     );
 
-    const remainingValue =
-        (remainingDays / totalDays) *
-        Number(subscription.membership_plan.price);
+    const remainingValue = (remainingDays / totalDays) * Number(subscription.membership_plan.price);
 
     const amountToPay = Math.max(
         0,
@@ -291,21 +289,12 @@ export const upgradeMembership = asyncHandler(async (req, res) => {
         throw new AppError("Membership not found", 404);
     }
 
-    const startDate = new Date();
-
-    const endDate = new Date(startDate);
-
-    // Example: monthly plan
-    endDate.setMonth(endDate.getMonth() + 1);
-
     const updatedSubscription = await prisma.subscriptions.update({
         where: {
             id: subscription.id,
         },
         data: {
             membership_id: membership_id,
-            start_date: startDate,
-            end_date: endDate,
         },
     });
 
