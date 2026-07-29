@@ -14,6 +14,7 @@ import subscriptionsRouter from './routes/subscriptions/index.ts';
 import attendanceRouter from './routes/attendance/index.ts';
 import usersRouter from './routes/users/index.ts';
 import "./cron/subscriptionReminder.ts";
+import machineRouter from './routes/machine/index.ts';
 
 dotenv.config();
 const app = express();
@@ -47,6 +48,7 @@ app.use('/', profileRouter);
 app.use("/membership-plans", membershipPlansRouter);
 app.use("/subscriptions", subscriptionsRouter);
 app.use("/attendance", attendanceRouter);
+app.use("/machines", machineRouter);
 
 //Register Error middleware
 app.use(errorHandler);

@@ -54,12 +54,29 @@ model subscriptions {
 }
 
 model attendance {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   user_id       Int
   checkin_time  DateTime
   checkout_time DateTime?
 
-  user               users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("attendance")
+}
+
+enum MachineStatus {
+  AVAILABLE
+  MAINTENANCE
+  BROKEN
+}
+
+model machine {
+  id         Int           @id @default(autoincrement())
+  name       String
+  location   String
+  status     MachineStatus @default(AVAILABLE)
+  created_at DateTime      @default(now())
+  updated_at DateTime      @updatedAt
+
+  @@map("machine")
 }

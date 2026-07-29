@@ -9,7 +9,10 @@
 * 🟢 You can import this file directly.
 */
 
+export const MachineStatus = {
+  AVAILABLE: 'AVAILABLE',
+  MAINTENANCE: 'MAINTENANCE',
+  BROKEN: 'BROKEN'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type MachineStatus = (typeof MachineStatus)[keyof typeof MachineStatus]

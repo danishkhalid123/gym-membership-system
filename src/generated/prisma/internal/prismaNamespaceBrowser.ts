@@ -54,7 +54,8 @@ export const ModelName = {
   users: 'users',
   membership_plans: 'membership_plans',
   subscriptions: 'subscriptions',
-  attendance: 'attendance'
+  attendance: 'attendance',
+  machine: 'machine'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -119,6 +120,18 @@ export const AttendanceScalarFieldEnum = {
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
+export const MachineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MachineScalarFieldEnum = (typeof MachineScalarFieldEnum)[keyof typeof MachineScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -158,4 +171,12 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const machineOrderByRelevanceFieldEnum = {
+  name: 'name',
+  location: 'location'
+} as const
+
+export type machineOrderByRelevanceFieldEnum = (typeof machineOrderByRelevanceFieldEnum)[keyof typeof machineOrderByRelevanceFieldEnum]
 

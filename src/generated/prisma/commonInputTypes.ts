@@ -129,6 +129,23 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
+export type EnumMachineStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MachineStatus | Prisma.EnumMachineStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MachineStatus[]
+  notIn?: $Enums.MachineStatus[]
+  not?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel> | $Enums.MachineStatus
+}
+
+export type EnumMachineStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MachineStatus | Prisma.EnumMachineStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MachineStatus[]
+  notIn?: $Enums.MachineStatus[]
+  not?: Prisma.NestedEnumMachineStatusWithAggregatesFilter<$PrismaModel> | $Enums.MachineStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -259,6 +276,23 @@ export type NestedIntNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumMachineStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MachineStatus | Prisma.EnumMachineStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MachineStatus[]
+  notIn?: $Enums.MachineStatus[]
+  not?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel> | $Enums.MachineStatus
+}
+
+export type NestedEnumMachineStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MachineStatus | Prisma.EnumMachineStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MachineStatus[]
+  notIn?: $Enums.MachineStatus[]
+  not?: Prisma.NestedEnumMachineStatusWithAggregatesFilter<$PrismaModel> | $Enums.MachineStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
 }
 
 

@@ -61,3 +61,8 @@ export type subscriptions = Prisma.subscriptionsModel
  * 
  */
 export type attendance = Prisma.attendanceModel
+/**
+ * Model machine
+ * 
+ */
+export type machine = Prisma.machineModel

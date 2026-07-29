@@ -387,7 +387,8 @@ export const ModelName = {
   users: 'users',
   membership_plans: 'membership_plans',
   subscriptions: 'subscriptions',
-  attendance: 'attendance'
+  attendance: 'attendance',
+  machine: 'machine'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance"
+    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance" | "machine"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -671,6 +672,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    machine: {
+      payload: Prisma.$machinePayload<ExtArgs>
+      fields: Prisma.machineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.machineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.machineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        findFirst: {
+          args: Prisma.machineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.machineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        findMany: {
+          args: Prisma.machineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>[]
+        }
+        create: {
+          args: Prisma.machineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        createMany: {
+          args: Prisma.machineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.machineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        update: {
+          args: Prisma.machineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        deleteMany: {
+          args: Prisma.machineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.machineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.machineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$machinePayload>
+        }
+        aggregate: {
+          args: Prisma.MachineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMachine>
+        }
+        groupBy: {
+          args: Prisma.machineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MachineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.machineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MachineCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -756,6 +823,18 @@ export const AttendanceScalarFieldEnum = {
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
+export const MachineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MachineScalarFieldEnum = (typeof MachineScalarFieldEnum)[keyof typeof MachineScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -797,6 +876,14 @@ export const NullsOrder = {
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+export const machineOrderByRelevanceFieldEnum = {
+  name: 'name',
+  location: 'location'
+} as const
+
+export type machineOrderByRelevanceFieldEnum = (typeof machineOrderByRelevanceFieldEnum)[keyof typeof machineOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -821,6 +908,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'MachineStatus'
+ */
+export type EnumMachineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MachineStatus'>
     
 
 
@@ -944,6 +1038,7 @@ export type GlobalOmitConfig = {
   membership_plans?: Prisma.membership_plansOmit
   subscriptions?: Prisma.subscriptionsOmit
   attendance?: Prisma.attendanceOmit
+  machine?: Prisma.machineOmit
 }
 
 /* Types for Logging */
