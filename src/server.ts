@@ -15,6 +15,8 @@ import attendanceRouter from './routes/attendance/index.ts';
 import usersRouter from './routes/users/index.ts';
 import "./cron/subscriptionReminder.ts";
 import machineRouter from './routes/machine/index.ts';
+import http from "http";
+import { initializeSocket } from "./sockets/index.ts";
 
 dotenv.config();
 const app = express();
@@ -53,7 +55,13 @@ app.use("/machines", machineRouter);
 //Register Error middleware
 app.use(errorHandler);
 
+// Create HTTP Server
+const server = http.createServer(app);
 
-app.listen(PORT, () => {
+// Initialize Socket.IO
+initializeSocket(server);
+
+// Start Server
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

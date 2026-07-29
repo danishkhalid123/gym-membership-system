@@ -4,6 +4,7 @@ import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
 import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
+import { getIO } from "../../sockets/index.ts";
 
 export const createOrUpdateMachineSchema = zod.object({
     name: zod.string().trim().min(1, "Name is required").min(3, "Name must be at least 3 characters"),
@@ -15,6 +16,14 @@ export const machineQuerySchema = zod.object({
     page: zod.coerce.number().min(1).default(1),
     limit: zod.coerce.number().min(1).max(100).default(10),
     search: zod.string().optional().default(""),
+});
+
+export const updateMachineStatusSchema = zod.object({
+    status: zod.enum([
+        "AVAILABLE",
+        "MAINTENANCE",
+        "BROKEN",
+    ]),
 });
 
 export const getAllMachines = asyncHandler(async (req, res) => {
@@ -129,4 +138,37 @@ export const deleteMachine = asyncHandler(async (req, res) => {
         where: { id: Number(id) }
     });
     return sendResponse(res, { status: 200, success: true, message: 'Machine deleted successfully' })
+});
+
+export const updateMachineStatus = asyncHandler(async (req, res) => {
+    const validation = updateMachineStatusSchema.safeParse(req.body);
+
+    if (!validation.success) {
+        return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
+    }
+
+    const { id } = req.params;
+    const { status } = validation.data;
+
+    const machine = await prisma.machine.findUnique({
+        where: { id: Number(id) },
+    });
+
+    if (!machine) {
+        throw new AppError("Machine not found", 404);
+    }
+
+    const updatedMachine = await prisma.machine.update({
+        where: { id: Number(id) },
+        data: { status },
+    });
+
+    getIO().to("machines").emit("machine-status-updated", {
+        machineId: updatedMachine.id,
+        name: updatedMachine.name,
+        location: updatedMachine.location,
+        status: updatedMachine.status,
+    });
+
+    return sendResponse(res, { status: 200, success: true, message: "Machine status updated successfully", data: updatedMachine, });
 });
