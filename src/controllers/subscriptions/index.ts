@@ -151,7 +151,7 @@ export const updateParticularSubscription = asyncHandler(async (req, res) => {
         throw new AppError("Record Not Found", 404);
     }
 
-    const getMembershipId = await prisma.subscriptions.findUnique({
+    const getMembershipId = await prisma.membership_plans.findUnique({
         where: { id: Number(membership_id) }
     });
 

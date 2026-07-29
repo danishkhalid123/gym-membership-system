@@ -13,6 +13,7 @@ import membershipPlansRouter from './routes/membership-plans/index.ts';
 import subscriptionsRouter from './routes/subscriptions/index.ts';
 import attendanceRouter from './routes/attendance/index.ts';
 import usersRouter from './routes/users/index.ts';
+import "./cron/subscriptionReminder.ts";
 
 dotenv.config();
 const app = express();
