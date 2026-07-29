@@ -196,3 +196,118 @@ export const deleteSubscription = asyncHandler(async (req, res) => {
     });
     return sendResponse(res, { status: 200, success: true, message: 'Subscription deleted successfully', data: deleteSubscription })
 });
+
+
+export const upgradePreviewPlan = asyncHandler(async (req, res) => {
+    const { user_id, membership_id } = req.body;
+
+    const subscription = await prisma.subscriptions.findFirst({
+        where: {
+            user_id,
+            status: "active",
+        },
+        include: {
+            membership_plan: true,
+        },
+    });
+
+    if (!subscription) {
+        throw new AppError("Active subscription not found", 404);
+    }
+
+    const newPlan = await prisma.membership_plans.findUnique({
+        where: {
+            id: membership_id,
+        },
+    });
+
+    if (!newPlan) {
+        throw new AppError("Membership not found", 404);
+    }
+
+    if (Number(newPlan.price) <= Number(subscription.membership_plan.price)) {
+        throw new AppError("Only upgrades are allowed", 400);
+    }
+
+    const today = new Date();
+
+    const totalDays = Math.ceil(
+        (subscription.end_date.getTime() - subscription.start_date.getTime()) /
+        (1000 * 60 * 60 * 24)
+    );
+
+    const remainingDays = Math.max(
+        0,
+        Math.ceil(
+            (subscription.end_date.getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
+        )
+    );
+
+    const remainingValue =
+        (remainingDays / totalDays) *
+        Number(subscription.membership_plan.price);
+
+    const amountToPay = Math.max(
+        0,
+        Number(newPlan.price) - remainingValue
+    );
+
+    return sendResponse(res, {
+        status: 200, success: true, message: "Upgrade preview",
+        data: {
+            current_plan: subscription.membership_plan.name,
+            new_plan: newPlan.name,
+            current_price: subscription.membership_plan.price,
+            new_price: newPlan.price,
+            remaining_days: remainingDays,
+            credit: Number(remainingValue.toFixed(2)),
+            amount_to_pay: Number(amountToPay.toFixed(2)),
+        },
+    });
+});
+
+export const upgradeMembership = asyncHandler(async (req, res) => {
+    const { user_id, membership_id } = req.body;
+
+    const subscription = await prisma.subscriptions.findFirst({
+        where: {
+            user_id,
+            status: "active",
+        },
+    });
+
+    if (!subscription) {
+        throw new AppError("Subscription not found", 404);
+    }
+
+    const newPlan = await prisma.membership_plans.findUnique({
+        where: {
+            id: membership_id,
+        },
+    });
+
+    if (!newPlan) {
+        throw new AppError("Membership not found", 404);
+    }
+
+    const startDate = new Date();
+
+    const endDate = new Date(startDate);
+
+    // Example: monthly plan
+    endDate.setMonth(endDate.getMonth() + 1);
+
+    const updatedSubscription = await prisma.subscriptions.update({
+        where: {
+            id: subscription.id,
+        },
+        data: {
+            membership_id: membership_id,
+            start_date: startDate,
+            end_date: endDate,
+        },
+    });
+
+    return sendResponse(res, { status: 200, success: true, message: "Membership upgraded successfully", data: updatedSubscription, });
+});

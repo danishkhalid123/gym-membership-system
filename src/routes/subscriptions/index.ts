@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllSubscriptions, getParticularSubscription, addNewSubscription, updateParticularSubscription, deleteSubscription } from '../../controllers/subscriptions/index.ts';
+import { getAllSubscriptions, getParticularSubscription, addNewSubscription, updateParticularSubscription, deleteSubscription, upgradePreviewPlan,upgradeMembership } from '../../controllers/subscriptions/index.ts';
 
 const subscriptionsRouter = express.Router();
 
@@ -13,5 +13,8 @@ subscriptionsRouter.put('/:id', updateParticularSubscription);
 
 subscriptionsRouter.delete('/:id', deleteSubscription);
 
+subscriptionsRouter.post('/upgrade-preview', upgradePreviewPlan);
+
+subscriptionsRouter.post('/upgrade-membership', upgradeMembership);
 
 export default subscriptionsRouter;
