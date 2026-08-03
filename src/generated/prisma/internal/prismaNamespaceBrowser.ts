@@ -55,7 +55,9 @@ export const ModelName = {
   membership_plans: 'membership_plans',
   subscriptions: 'subscriptions',
   attendance: 'attendance',
-  machine: 'machine'
+  machine: 'machine',
+  conversations: 'conversations',
+  messages: 'messages'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -132,6 +134,28 @@ export const MachineScalarFieldEnum = {
 export type MachineScalarFieldEnum = (typeof MachineScalarFieldEnum)[keyof typeof MachineScalarFieldEnum]
 
 
+export const ConversationsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  admin_id: 'admin_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ConversationsScalarFieldEnum = (typeof ConversationsScalarFieldEnum)[keyof typeof ConversationsScalarFieldEnum]
+
+
+export const MessagesScalarFieldEnum = {
+  id: 'id',
+  conversation_id: 'conversation_id',
+  sender_id: 'sender_id',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -179,4 +203,11 @@ export const machineOrderByRelevanceFieldEnum = {
 } as const
 
 export type machineOrderByRelevanceFieldEnum = (typeof machineOrderByRelevanceFieldEnum)[keyof typeof machineOrderByRelevanceFieldEnum]
+
+
+export const messagesOrderByRelevanceFieldEnum = {
+  content: 'content'
+} as const
+
+export type messagesOrderByRelevanceFieldEnum = (typeof messagesOrderByRelevanceFieldEnum)[keyof typeof messagesOrderByRelevanceFieldEnum]
 

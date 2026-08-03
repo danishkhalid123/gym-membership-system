@@ -42,3 +42,13 @@ export type attendance = Prisma.attendanceModel
  * 
  */
 export type machine = Prisma.machineModel
+/**
+ * Model conversations
+ * 
+ */
+export type conversations = Prisma.conversationsModel
+/**
+ * Model messages
+ * 
+ */
+export type messages = Prisma.messagesModel

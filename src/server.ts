@@ -17,6 +17,7 @@ import "./cron/subscriptionReminder.ts";
 import machineRouter from './routes/machine/index.ts';
 import http from "http";
 import { initializeSocket } from "./sockets/index.ts";
+import chatRouter from './routes/chat/index.ts';
 
 dotenv.config();
 const app = express();
@@ -51,6 +52,7 @@ app.use("/membership-plans", membershipPlansRouter);
 app.use("/subscriptions", subscriptionsRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/machines", machineRouter);
+app.use("/chat", chatRouter);
 
 //Register Error middleware
 app.use(errorHandler);

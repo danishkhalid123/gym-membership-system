@@ -80,3 +80,29 @@ model machine {
 
   @@map("machine")
 }
+
+model conversations {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  admin_id   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  messages messages[]
+
+  @@unique([user_id, admin_id])
+  @@map("conversations")
+}
+
+model messages {
+  id              Int      @id @default(autoincrement())
+  conversation_id Int
+  sender_id       Int
+  content         String   @db.VarChar(1000)
+  created_at      DateTime @default(now())
+
+  conversation conversations @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+
+  @@index([conversation_id, created_at])
+  @@map("messages")
+}
