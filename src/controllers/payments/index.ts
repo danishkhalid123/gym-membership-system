@@ -104,7 +104,7 @@ export const createUpgradeCheckoutSession = asyncHandler(async (req, res) => {
     if (!validation.success) {
         return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
     }
-    const { user_id, membership_id } = validation.data;
+    const { user_id, membership_id, discount_code } = validation.data;
 
     const subscription = await prisma.subscriptions.findFirst({
         where: { user_id, status: "active" },
@@ -122,7 +122,6 @@ export const createUpgradeCheckoutSession = asyncHandler(async (req, res) => {
     const user = await prisma.users.findUnique({ where: { id: user_id } });
     if (!user) throw new AppError("User id not found", 404);
 
-    // same proration as upgradePreviewPlan so the charge matches the preview
     const today = new Date();
     const totalDays = Math.ceil(
         (subscription.end_date.getTime() - subscription.start_date.getTime()) / (1000 * 60 * 60 * 24)
@@ -132,7 +131,12 @@ export const createUpgradeCheckoutSession = asyncHandler(async (req, res) => {
         Math.ceil((subscription.end_date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
     );
     const remainingValue = (remainingDays / totalDays) * Number(subscription.membership_plan.price);
-    const amountToPay = Math.max(0, Number(newPlan.price) - remainingValue);
+    const subtotal = Math.max(0, Number(newPlan.price) - remainingValue);
+
+    const breakdown = discount_code
+        ? await applyDiscount(discount_code, Number(subtotal.toFixed(2)))
+        : null;
+    const amountToPay = breakdown ? breakdown.final_price : subtotal;
 
     const session = await stripe.checkout.sessions.create({
         mode: "payment",
@@ -152,6 +156,7 @@ export const createUpgradeCheckoutSession = asyncHandler(async (req, res) => {
             type: "upgrade",
             user_id: String(user_id),
             membership_id: String(membership_id),
+            discount_code: breakdown ? breakdown.code : "",
         },
         success_url: `${process.env.FRONTEND_URL}/payment/success?session_id={CHECKOUT_SESSION_ID}&type=upgrade`,
         cancel_url: `${process.env.FRONTEND_URL}/payment/cancel`,

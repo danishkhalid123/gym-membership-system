@@ -4,6 +4,7 @@ import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
 import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
+import { applyDiscount } from "../../utils/discount.ts";
 
 export const createOrUpdateSubscriptionSchema = zod.object({
     user_id: zod.number(),
@@ -199,7 +200,7 @@ export const deleteSubscription = asyncHandler(async (req, res) => {
 
 
 export const upgradePreviewPlan = asyncHandler(async (req, res) => {
-    const { user_id, membership_id } = req.body;
+    const { user_id, membership_id ,discount_code} = req.body;
 
     const subscription = await prisma.subscriptions.findFirst({
         where: {
@@ -251,6 +252,10 @@ export const upgradePreviewPlan = asyncHandler(async (req, res) => {
         Number(newPlan.price) - remainingValue
     );
 
+    const breakdown = discount_code
+        ? await applyDiscount(discount_code, Number(amountToPay.toFixed(2)))
+        : null;
+
     return sendResponse(res, {
         status: 200, success: true, message: "Upgrade preview",
         data: {
@@ -260,9 +265,13 @@ export const upgradePreviewPlan = asyncHandler(async (req, res) => {
             new_price: newPlan.price,
             remaining_days: remainingDays,
             credit: Number(remainingValue.toFixed(2)),
-            amount_to_pay: Number(amountToPay.toFixed(2)),
+            subtotal: Number(amountToPay.toFixed(2)),
+            discount_code: breakdown ? breakdown.code : null,
+            discount_amount: breakdown ? breakdown.discount_amount : 0,
+            amount_to_pay: breakdown ? breakdown.final_price : Number(amountToPay.toFixed(2)),
         },
     });
+
 });
 
 export const upgradeMembership = asyncHandler(async (req, res) => {
