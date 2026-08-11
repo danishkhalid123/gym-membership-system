@@ -146,6 +146,40 @@ export type EnumMachineStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
 }
 
+export type EnumDiscountTypesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiscountTypes | Prisma.EnumDiscountTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.DiscountTypes[]
+  notIn?: $Enums.DiscountTypes[]
+  not?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel> | $Enums.DiscountTypes
+}
+
+export type EnumStatusTypesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusTypes | Prisma.EnumStatusTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.StatusTypes[]
+  notIn?: $Enums.StatusTypes[]
+  not?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel> | $Enums.StatusTypes
+}
+
+export type EnumDiscountTypesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiscountTypes | Prisma.EnumDiscountTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.DiscountTypes[]
+  notIn?: $Enums.DiscountTypes[]
+  not?: Prisma.NestedEnumDiscountTypesWithAggregatesFilter<$PrismaModel> | $Enums.DiscountTypes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel>
+}
+
+export type EnumStatusTypesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusTypes | Prisma.EnumStatusTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.StatusTypes[]
+  notIn?: $Enums.StatusTypes[]
+  not?: Prisma.NestedEnumStatusTypesWithAggregatesFilter<$PrismaModel> | $Enums.StatusTypes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -293,6 +327,40 @@ export type NestedEnumMachineStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMachineStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDiscountTypesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiscountTypes | Prisma.EnumDiscountTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.DiscountTypes[]
+  notIn?: $Enums.DiscountTypes[]
+  not?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel> | $Enums.DiscountTypes
+}
+
+export type NestedEnumStatusTypesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusTypes | Prisma.EnumStatusTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.StatusTypes[]
+  notIn?: $Enums.StatusTypes[]
+  not?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel> | $Enums.StatusTypes
+}
+
+export type NestedEnumDiscountTypesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiscountTypes | Prisma.EnumDiscountTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.DiscountTypes[]
+  notIn?: $Enums.DiscountTypes[]
+  not?: Prisma.NestedEnumDiscountTypesWithAggregatesFilter<$PrismaModel> | $Enums.DiscountTypes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDiscountTypesFilter<$PrismaModel>
+}
+
+export type NestedEnumStatusTypesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusTypes | Prisma.EnumStatusTypesFieldRefInput<$PrismaModel>
+  in?: $Enums.StatusTypes[]
+  notIn?: $Enums.StatusTypes[]
+  not?: Prisma.NestedEnumStatusTypesWithAggregatesFilter<$PrismaModel> | $Enums.StatusTypes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStatusTypesFilter<$PrismaModel>
 }
 
 

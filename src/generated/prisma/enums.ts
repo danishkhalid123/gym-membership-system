@@ -16,3 +16,19 @@ export const MachineStatus = {
 } as const
 
 export type MachineStatus = (typeof MachineStatus)[keyof typeof MachineStatus]
+
+
+export const DiscountTypes = {
+  fixed: 'fixed',
+  Percent: 'Percent'
+} as const
+
+export type DiscountTypes = (typeof DiscountTypes)[keyof typeof DiscountTypes]
+
+
+export const StatusTypes = {
+  active: 'active',
+  inactive: 'inactive'
+} as const
+
+export type StatusTypes = (typeof StatusTypes)[keyof typeof StatusTypes]

@@ -76,3 +76,8 @@ export type conversations = Prisma.conversationsModel
  * 
  */
 export type messages = Prisma.messagesModel
+/**
+ * Model discounts
+ * 
+ */
+export type discounts = Prisma.discountsModel

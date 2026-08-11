@@ -57,7 +57,8 @@ export const ModelName = {
   attendance: 'attendance',
   machine: 'machine',
   conversations: 'conversations',
-  messages: 'messages'
+  messages: 'messages',
+  discounts: 'discounts'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -156,6 +157,17 @@ export const MessagesScalarFieldEnum = {
 export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
 
 
+export const DiscountsScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  value: 'value',
+  type: 'type',
+  status: 'status'
+} as const
+
+export type DiscountsScalarFieldEnum = (typeof DiscountsScalarFieldEnum)[keyof typeof DiscountsScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -210,4 +222,11 @@ export const messagesOrderByRelevanceFieldEnum = {
 } as const
 
 export type messagesOrderByRelevanceFieldEnum = (typeof messagesOrderByRelevanceFieldEnum)[keyof typeof messagesOrderByRelevanceFieldEnum]
+
+
+export const discountsOrderByRelevanceFieldEnum = {
+  code: 'code'
+} as const
+
+export type discountsOrderByRelevanceFieldEnum = (typeof discountsOrderByRelevanceFieldEnum)[keyof typeof discountsOrderByRelevanceFieldEnum]
 

@@ -390,7 +390,8 @@ export const ModelName = {
   attendance: 'attendance',
   machine: 'machine',
   conversations: 'conversations',
-  messages: 'messages'
+  messages: 'messages',
+  discounts: 'discounts'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance" | "machine" | "conversations" | "messages"
+    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance" | "machine" | "conversations" | "messages" | "discounts"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -872,6 +873,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    discounts: {
+      payload: Prisma.$discountsPayload<ExtArgs>
+      fields: Prisma.discountsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.discountsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.discountsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        findFirst: {
+          args: Prisma.discountsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.discountsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        findMany: {
+          args: Prisma.discountsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>[]
+        }
+        create: {
+          args: Prisma.discountsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        createMany: {
+          args: Prisma.discountsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.discountsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        update: {
+          args: Prisma.discountsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        deleteMany: {
+          args: Prisma.discountsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.discountsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.discountsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$discountsPayload>
+        }
+        aggregate: {
+          args: Prisma.DiscountsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDiscounts>
+        }
+        groupBy: {
+          args: Prisma.discountsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DiscountsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.discountsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DiscountsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -991,6 +1058,17 @@ export const MessagesScalarFieldEnum = {
 export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
 
 
+export const DiscountsScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  value: 'value',
+  type: 'type',
+  status: 'status'
+} as const
+
+export type DiscountsScalarFieldEnum = (typeof DiscountsScalarFieldEnum)[keyof typeof DiscountsScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1047,6 +1125,13 @@ export const messagesOrderByRelevanceFieldEnum = {
 export type messagesOrderByRelevanceFieldEnum = (typeof messagesOrderByRelevanceFieldEnum)[keyof typeof messagesOrderByRelevanceFieldEnum]
 
 
+export const discountsOrderByRelevanceFieldEnum = {
+  code: 'code'
+} as const
+
+export type discountsOrderByRelevanceFieldEnum = (typeof discountsOrderByRelevanceFieldEnum)[keyof typeof discountsOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -1078,6 +1163,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'MachineStatus'
  */
 export type EnumMachineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MachineStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DiscountTypes'
+ */
+export type EnumDiscountTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiscountTypes'>
+    
+
+
+/**
+ * Reference to a field of type 'StatusTypes'
+ */
+export type EnumStatusTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusTypes'>
     
 
 
@@ -1204,6 +1303,7 @@ export type GlobalOmitConfig = {
   machine?: Prisma.machineOmit
   conversations?: Prisma.conversationsOmit
   messages?: Prisma.messagesOmit
+  discounts?: Prisma.discountsOmit
 }
 
 /* Types for Logging */

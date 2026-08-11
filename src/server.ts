@@ -9,8 +9,8 @@ import authRouter from './routes/auth/index.ts';
 import { connectDB } from "./config/db.ts";
 import { errorHandler } from './middlewares/error-handler.ts';
 import profileRouter from './routes/profile/index.ts';
-import membershipPlansRouter from './routes/membership-plans/index.ts';
-import subscriptionsRouter from './routes/subscriptions/index.ts';
+import membershipPlansRouter from './routes/membership-plan/index.ts';
+import subscriptionsRouter from './routes/subscription/index.ts';
 import attendanceRouter from './routes/attendance/index.ts';
 import usersRouter from './routes/users/index.ts';
 import "./cron/subscriptionReminder.ts";
@@ -18,7 +18,8 @@ import machineRouter from './routes/machine/index.ts';
 import http from "http";
 import { initializeSocket } from "./sockets/index.ts";
 import chatRouter from './routes/chat/index.ts';
-import paymentsRouter from './routes/payments/index.ts';
+import paymentsRouter from './routes/payment/index.ts';
+import discountRouter from './routes/discount/index.ts';
 
 dotenv.config();
 const app = express();
@@ -55,6 +56,7 @@ app.use("/attendance", attendanceRouter);
 app.use("/machines", machineRouter);
 app.use("/chat", chatRouter);
 app.use("/payments", paymentsRouter);
+app.use("/discounts", discountRouter);
 
 //Register Error middleware
 app.use(errorHandler);

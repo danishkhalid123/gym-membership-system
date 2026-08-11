@@ -106,3 +106,21 @@ model messages {
   @@index([conversation_id, created_at])
   @@map("messages")
 }
+
+enum DiscountTypes {
+  fixed
+  Percent
+}
+
+enum StatusTypes {
+  active
+  inactive
+}
+
+model discounts {
+  id     Int           @id @default(autoincrement())
+  code   String        @unique
+  value  Int
+  type   DiscountTypes
+  status StatusTypes
+}
