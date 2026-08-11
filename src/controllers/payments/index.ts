@@ -4,12 +4,14 @@ import { prisma } from "../../config/db.ts";
 import { sendResponse } from "../../utils/api-response.ts";
 import { AppError } from "../../utils/app-errors.ts";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
+import { applyDiscount } from "../../utils/discount.ts";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const checkoutSchema = zod.object({
     user_id: zod.number(),
     membership_id: zod.number(),
+    discount_code: zod.string().trim().optional(),
 });
 
 export const createCheckoutSession = asyncHandler(async (req, res) => {
@@ -17,7 +19,7 @@ export const createCheckoutSession = asyncHandler(async (req, res) => {
     if (!validation.success) {
         return sendResponse(res, { status: 400, success: false, message: "Validation Error", data: validation.error.issues });
     }
-    const { user_id, membership_id } = validation.data;
+    const { user_id, membership_id, discount_code } = validation.data;
 
     const plan = await prisma.membership_plans.findUnique({ where: { id: membership_id } });
     if (!plan) throw new AppError("Membership id not found", 404);
@@ -25,14 +27,24 @@ export const createCheckoutSession = asyncHandler(async (req, res) => {
     const user = await prisma.users.findUnique({ where: { id: user_id } });
     if (!user) throw new AppError("User id not found", 404);
 
+    const breakdown = discount_code
+        ? await applyDiscount(discount_code, Number(plan.price))
+        : null;
+    const amountToCharge = breakdown ? breakdown.final_price : Number(plan.price);
+
     const session = await stripe.checkout.sessions.create({
         mode: "payment",
         customer_email: user.email,
         line_items: [{
             price_data: {
-                currency: "usd", // adjust to your currency
-                product_data: { name: plan.name, description: plan.description },
-                unit_amount: plan.price * 100, // Stripe uses the smallest unit (cents)
+                currency: "usd",
+                product_data: {
+                    name: plan.name,
+                    description: breakdown
+                        ? `${plan.description} (code ${breakdown.code} applied)`
+                        : plan.description,
+                },
+                unit_amount: Math.round(amountToCharge * 100),
             },
             quantity: 1,
         }],
@@ -40,6 +52,7 @@ export const createCheckoutSession = asyncHandler(async (req, res) => {
             user_id: String(user_id),
             membership_id: String(membership_id),
             duration_days: String(plan.duration_days),
+            discount_code: breakdown ? breakdown.code : "",
         },
         success_url: `${process.env.FRONTEND_URL}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.FRONTEND_URL}/payment/cancel`,

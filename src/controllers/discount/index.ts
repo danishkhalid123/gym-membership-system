@@ -4,6 +4,12 @@ import { prisma } from "../../config/db.ts";
 import zod from "zod";
 import { asyncHandler } from "../../middlewares/async-handler.ts";
 import { getPagination, getPaginationMeta } from "../../utils/pagination.ts";
+import { applyDiscount } from "../../utils/discount.ts";
+
+export const validateDiscountSchema = zod.object({
+    code: zod.string().trim().min(1, "Code is required"),
+    membership_id: zod.number(),
+});
 
 export const createOrUpdateDiscountSchema = zod.object({
     code: zod.string().trim().min(1, "Name is required").min(3, "Name must be at least 3 characters"),
@@ -165,4 +171,25 @@ export const updateDiscountStatus = asyncHandler(async (req, res) => {
     });
 
     return sendResponse(res, { status: 200, success: true, message: "Discount status updated successfully", data: updatedDiscount, });
+});
+
+export const validateDiscountCode = asyncHandler(async (req, res) => {
+    const validation = validateDiscountSchema.safeParse(req.body);
+    if (!validation.success) {
+        return sendResponse(res, {
+            status: 400, success: false, message: "Validation Error", data: validation.error.issues.map((issue) => ({
+                field: issue.path.join("."),
+                message: issue.message,
+            })),
+        });
+    }
+
+    const { code, membership_id } = validation.data;
+
+    const plan = await prisma.membership_plans.findUnique({ where: { id: membership_id } });
+    if (!plan) throw new AppError("Membership id not found", 404);
+
+    const breakdown = await applyDiscount(code, Number(plan.price));
+
+    return sendResponse(res, { status: 200, success: true, message: "Discount applied", data: breakdown });
 });
