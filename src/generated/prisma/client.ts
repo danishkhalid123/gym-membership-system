@@ -81,3 +81,8 @@ export type messages = Prisma.messagesModel
  * 
  */
 export type discounts = Prisma.discountsModel
+/**
+ * Model feedback
+ * 
+ */
+export type feedback = Prisma.feedbackModel

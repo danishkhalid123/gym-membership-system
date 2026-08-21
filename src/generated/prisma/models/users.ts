@@ -234,6 +234,7 @@ export type usersWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   subscription?: Prisma.SubscriptionsListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
+  feedback?: Prisma.FeedbackListRelationFilter
 }
 
 export type usersOrderByWithRelationInput = {
@@ -246,6 +247,7 @@ export type usersOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   subscription?: Prisma.subscriptionsOrderByRelationAggregateInput
   attendance?: Prisma.attendanceOrderByRelationAggregateInput
+  feedback?: Prisma.feedbackOrderByRelationAggregateInput
   _relevance?: Prisma.usersOrderByRelevanceInput
 }
 
@@ -262,6 +264,7 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"users"> | Date | string
   subscription?: Prisma.SubscriptionsListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
+  feedback?: Prisma.FeedbackListRelationFilter
 }, "id" | "email">
 
 export type usersOrderByWithAggregationInput = {
@@ -301,6 +304,7 @@ export type usersCreateInput = {
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsCreateNestedManyWithoutUserInput
   attendance?: Prisma.attendanceCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateInput = {
@@ -313,6 +317,7 @@ export type usersUncheckedCreateInput = {
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutUserInput
   attendance?: Prisma.attendanceUncheckedCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersUpdateInput = {
@@ -324,6 +329,7 @@ export type usersUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUpdateManyWithoutUserNestedInput
   attendance?: Prisma.attendanceUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateInput = {
@@ -336,6 +342,7 @@ export type usersUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutUserNestedInput
   attendance?: Prisma.attendanceUncheckedUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type usersCreateManyInput = {
@@ -460,6 +467,20 @@ export type usersUpdateOneRequiredWithoutAttendanceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutAttendanceInput, Prisma.usersUpdateWithoutAttendanceInput>, Prisma.usersUncheckedUpdateWithoutAttendanceInput>
 }
 
+export type usersCreateNestedOneWithoutFeedbackInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutFeedbackInput, Prisma.usersUncheckedCreateWithoutFeedbackInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutFeedbackInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutFeedbackNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutFeedbackInput, Prisma.usersUncheckedCreateWithoutFeedbackInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutFeedbackInput
+  upsert?: Prisma.usersUpsertWithoutFeedbackInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutFeedbackInput, Prisma.usersUpdateWithoutFeedbackInput>, Prisma.usersUncheckedUpdateWithoutFeedbackInput>
+}
+
 export type usersCreateWithoutSubscriptionInput = {
   name: string
   email: string
@@ -468,6 +489,7 @@ export type usersCreateWithoutSubscriptionInput = {
   created_at?: Date | string
   updated_at?: Date | string
   attendance?: Prisma.attendanceCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateWithoutSubscriptionInput = {
@@ -479,6 +501,7 @@ export type usersUncheckedCreateWithoutSubscriptionInput = {
   created_at?: Date | string
   updated_at?: Date | string
   attendance?: Prisma.attendanceUncheckedCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersCreateOrConnectWithoutSubscriptionInput = {
@@ -505,6 +528,7 @@ export type usersUpdateWithoutSubscriptionInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.attendanceUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateWithoutSubscriptionInput = {
@@ -516,6 +540,7 @@ export type usersUncheckedUpdateWithoutSubscriptionInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.attendanceUncheckedUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type usersCreateWithoutAttendanceInput = {
@@ -526,6 +551,7 @@ export type usersCreateWithoutAttendanceInput = {
   created_at?: Date | string
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackCreateNestedManyWithoutUserInput
 }
 
 export type usersUncheckedCreateWithoutAttendanceInput = {
@@ -537,6 +563,7 @@ export type usersUncheckedCreateWithoutAttendanceInput = {
   created_at?: Date | string
   updated_at?: Date | string
   subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutUserInput
+  feedback?: Prisma.feedbackUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type usersCreateOrConnectWithoutAttendanceInput = {
@@ -563,6 +590,7 @@ export type usersUpdateWithoutAttendanceInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUpdateManyWithoutUserNestedInput
 }
 
 export type usersUncheckedUpdateWithoutAttendanceInput = {
@@ -574,6 +602,69 @@ export type usersUncheckedUpdateWithoutAttendanceInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutUserNestedInput
+  feedback?: Prisma.feedbackUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type usersCreateWithoutFeedbackInput = {
+  name: string
+  email: string
+  password: string
+  role: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  subscription?: Prisma.subscriptionsCreateNestedManyWithoutUserInput
+  attendance?: Prisma.attendanceCreateNestedManyWithoutUserInput
+}
+
+export type usersUncheckedCreateWithoutFeedbackInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  role: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  subscription?: Prisma.subscriptionsUncheckedCreateNestedManyWithoutUserInput
+  attendance?: Prisma.attendanceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type usersCreateOrConnectWithoutFeedbackInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutFeedbackInput, Prisma.usersUncheckedCreateWithoutFeedbackInput>
+}
+
+export type usersUpsertWithoutFeedbackInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutFeedbackInput, Prisma.usersUncheckedUpdateWithoutFeedbackInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutFeedbackInput, Prisma.usersUncheckedCreateWithoutFeedbackInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutFeedbackInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutFeedbackInput, Prisma.usersUncheckedUpdateWithoutFeedbackInput>
+}
+
+export type usersUpdateWithoutFeedbackInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.subscriptionsUpdateManyWithoutUserNestedInput
+  attendance?: Prisma.attendanceUpdateManyWithoutUserNestedInput
+}
+
+export type usersUncheckedUpdateWithoutFeedbackInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.subscriptionsUncheckedUpdateManyWithoutUserNestedInput
+  attendance?: Prisma.attendanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -584,11 +675,13 @@ export type usersUncheckedUpdateWithoutAttendanceInput = {
 export type UsersCountOutputType = {
   subscription: number
   attendance: number
+  feedback: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | UsersCountOutputTypeCountSubscriptionArgs
   attendance?: boolean | UsersCountOutputTypeCountAttendanceArgs
+  feedback?: boolean | UsersCountOutputTypeCountFeedbackArgs
 }
 
 /**
@@ -615,6 +708,13 @@ export type UsersCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Type
   where?: Prisma.attendanceWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountFeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.feedbackWhereInput
+}
+
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -626,6 +726,7 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updated_at?: boolean
   subscription?: boolean | Prisma.users$subscriptionArgs<ExtArgs>
   attendance?: boolean | Prisma.users$attendanceArgs<ExtArgs>
+  feedback?: boolean | Prisma.users$feedbackArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
@@ -645,6 +746,7 @@ export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | Prisma.users$subscriptionArgs<ExtArgs>
   attendance?: boolean | Prisma.users$attendanceArgs<ExtArgs>
+  feedback?: boolean | Prisma.users$feedbackArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -653,6 +755,7 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     subscription: Prisma.$subscriptionsPayload<ExtArgs>[]
     attendance: Prisma.$attendancePayload<ExtArgs>[]
+    feedback: Prisma.$feedbackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1004,6 +1107,7 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscription<T extends Prisma.users$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$subscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendance<T extends Prisma.users$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$attendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feedback<T extends Prisma.users$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$feedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1433,6 +1537,30 @@ export type users$attendanceArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
+}
+
+/**
+ * users.feedback
+ */
+export type users$feedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the feedback
+   */
+  select?: Prisma.feedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the feedback
+   */
+  omit?: Prisma.feedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.feedbackInclude<ExtArgs> | null
+  where?: Prisma.feedbackWhereInput
+  orderBy?: Prisma.feedbackOrderByWithRelationInput | Prisma.feedbackOrderByWithRelationInput[]
+  cursor?: Prisma.feedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeedbackScalarFieldEnum | Prisma.FeedbackScalarFieldEnum[]
 }
 
 /**

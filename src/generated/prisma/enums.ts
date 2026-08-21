@@ -32,3 +32,23 @@ export const StatusTypes = {
 } as const
 
 export type StatusTypes = (typeof StatusTypes)[keyof typeof StatusTypes]
+
+
+export const FeedbackStatus = {
+  pending: 'pending',
+  reviewed: 'reviewed',
+  resolved: 'resolved'
+} as const
+
+export type FeedbackStatus = (typeof FeedbackStatus)[keyof typeof FeedbackStatus]
+
+
+export const FeedbackCategory = {
+  general: 'general',
+  trainer: 'trainer',
+  equipment: 'equipment',
+  cleanliness: 'cleanliness',
+  billing: 'billing'
+} as const
+
+export type FeedbackCategory = (typeof FeedbackCategory)[keyof typeof FeedbackCategory]

@@ -58,7 +58,8 @@ export const ModelName = {
   machine: 'machine',
   conversations: 'conversations',
   messages: 'messages',
-  discounts: 'discounts'
+  discounts: 'discounts',
+  feedback: 'feedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -168,6 +169,22 @@ export const DiscountsScalarFieldEnum = {
 export type DiscountsScalarFieldEnum = (typeof DiscountsScalarFieldEnum)[keyof typeof DiscountsScalarFieldEnum]
 
 
+export const FeedbackScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  rating: 'rating',
+  category: 'category',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  admin_reply: 'admin_reply',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -229,4 +246,13 @@ export const discountsOrderByRelevanceFieldEnum = {
 } as const
 
 export type discountsOrderByRelevanceFieldEnum = (typeof discountsOrderByRelevanceFieldEnum)[keyof typeof discountsOrderByRelevanceFieldEnum]
+
+
+export const feedbackOrderByRelevanceFieldEnum = {
+  subject: 'subject',
+  message: 'message',
+  admin_reply: 'admin_reply'
+} as const
+
+export type feedbackOrderByRelevanceFieldEnum = (typeof feedbackOrderByRelevanceFieldEnum)[keyof typeof feedbackOrderByRelevanceFieldEnum]
 

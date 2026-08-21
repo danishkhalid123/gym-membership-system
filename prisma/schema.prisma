@@ -23,6 +23,7 @@ model users {
 
   subscription subscriptions[]
   attendance   attendance[]
+  feedback     feedback[]
 
   @@map("users")
 }
@@ -123,4 +124,36 @@ model discounts {
   value  Int
   type   DiscountTypes
   status StatusTypes
+}
+
+enum FeedbackStatus {
+  pending
+  reviewed
+  resolved
+}
+
+enum FeedbackCategory {
+  general
+  trainer
+  equipment
+  cleanliness
+  billing
+}
+
+model feedback {
+  id          Int              @id @default(autoincrement())
+  user_id     Int
+  rating      Int
+  category    FeedbackCategory @default(general)
+  subject     String           @db.VarChar(120)
+  message     String           @db.VarChar(1000)
+  status      FeedbackStatus   @default(pending)
+  admin_reply String?          @db.VarChar(1000)
+  created_at  DateTime         @default(now())
+  updated_at  DateTime         @updatedAt
+
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, created_at])
+  @@map("feedback")
 }

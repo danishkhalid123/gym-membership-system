@@ -20,6 +20,7 @@ import { initializeSocket } from "./sockets/index.ts";
 import chatRouter from './routes/chat/index.ts';
 import paymentsRouter from './routes/payment/index.ts';
 import discountRouter from './routes/discount/index.ts';
+import feedbackRouter from './routes/feedback/index.ts';
 
 dotenv.config();
 const app = express();
@@ -57,6 +58,7 @@ app.use("/machines", machineRouter);
 app.use("/chat", chatRouter);
 app.use("/payments", paymentsRouter);
 app.use("/discounts", discountRouter);
+app.use("/feedback", feedbackRouter);
 
 //Register Error middleware
 app.use(errorHandler);

@@ -391,7 +391,8 @@ export const ModelName = {
   machine: 'machine',
   conversations: 'conversations',
   messages: 'messages',
-  discounts: 'discounts'
+  discounts: 'discounts',
+  feedback: 'feedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance" | "machine" | "conversations" | "messages" | "discounts"
+    modelProps: "users" | "membership_plans" | "subscriptions" | "attendance" | "machine" | "conversations" | "messages" | "discounts" | "feedback"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -939,6 +940,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    feedback: {
+      payload: Prisma.$feedbackPayload<ExtArgs>
+      fields: Prisma.feedbackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.feedbackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.feedbackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        findFirst: {
+          args: Prisma.feedbackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.feedbackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        findMany: {
+          args: Prisma.feedbackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>[]
+        }
+        create: {
+          args: Prisma.feedbackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        createMany: {
+          args: Prisma.feedbackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.feedbackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        update: {
+          args: Prisma.feedbackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        deleteMany: {
+          args: Prisma.feedbackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.feedbackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.feedbackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$feedbackPayload>
+        }
+        aggregate: {
+          args: Prisma.FeedbackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFeedback>
+        }
+        groupBy: {
+          args: Prisma.feedbackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeedbackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.feedbackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeedbackCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1069,6 +1136,22 @@ export const DiscountsScalarFieldEnum = {
 export type DiscountsScalarFieldEnum = (typeof DiscountsScalarFieldEnum)[keyof typeof DiscountsScalarFieldEnum]
 
 
+export const FeedbackScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  rating: 'rating',
+  category: 'category',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  admin_reply: 'admin_reply',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1132,6 +1215,15 @@ export const discountsOrderByRelevanceFieldEnum = {
 export type discountsOrderByRelevanceFieldEnum = (typeof discountsOrderByRelevanceFieldEnum)[keyof typeof discountsOrderByRelevanceFieldEnum]
 
 
+export const feedbackOrderByRelevanceFieldEnum = {
+  subject: 'subject',
+  message: 'message',
+  admin_reply: 'admin_reply'
+} as const
+
+export type feedbackOrderByRelevanceFieldEnum = (typeof feedbackOrderByRelevanceFieldEnum)[keyof typeof feedbackOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -1177,6 +1269,20 @@ export type EnumDiscountTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'StatusTypes'
  */
 export type EnumStatusTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusTypes'>
+    
+
+
+/**
+ * Reference to a field of type 'FeedbackCategory'
+ */
+export type EnumFeedbackCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'FeedbackStatus'
+ */
+export type EnumFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackStatus'>
     
 
 
@@ -1304,6 +1410,7 @@ export type GlobalOmitConfig = {
   conversations?: Prisma.conversationsOmit
   messages?: Prisma.messagesOmit
   discounts?: Prisma.discountsOmit
+  feedback?: Prisma.feedbackOmit
 }
 
 /* Types for Logging */
